@@ -1,0 +1,21 @@
+{
+  "name": "ibg-ng-html-gorgeous",
+  "version": "1.0.0",
+  "description": "make html file for angular more cute",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "pretty",
+    "formatter",
+    "html",
+    "angular"
+  ],
+  "author": "ahmedbassell@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^23.0.1",
+    "parse5": "^5.0.0"
+  }
+}
