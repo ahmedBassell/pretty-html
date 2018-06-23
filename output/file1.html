@@ -1,0 +1,57 @@
+<div
+	class="c-alert"
+	ng-class="bannerVm.stateClass">
+	<div class="c-alert__state">
+		<svg class="c-alert__icon">
+			<use
+				href="#shape-info"
+				ng-if="bannerVm.state === 'info'">
+			</use>
+
+			<use
+				href="#shape-warning"
+				ng-if="bannerVm.state === 'warning'">
+			</use>
+
+			<use
+				href="#shape-checkmark"
+				ng-if="bannerVm.state === 'success'">
+			</use>
+
+			<use
+				href="#shape-icon-blocked"
+				ng-if="bannerVm.state === 'error'">
+			</use>
+		</svg>
+	</div>
+
+	<div class="c-alert__content">
+		<div class="c-alert__message">
+			<div
+				ng-if="bannerVm.message"
+				ng-bind="bannerVm.message">
+			</div>
+
+			<ng-transclude ng-if="!banner.message"></ng-transclude>
+		</div>
+
+		<div
+			class="c-alert__action"
+			ng-if="bannerVm.hasButton">
+			<button
+				class="c-button c-button--outline-default"
+				type="button"
+				ng-attr-title="{{bannerVm.buttonName}}"
+				ng-click="bannerVm.onButtonClick()"
+				ng-bind="bannerVm.buttonName">
+				<span class="nice">hello</span>
+
+				<span class="nice">hello</span>
+
+				<span class="nice">hello</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<img src="hello.png"/>
