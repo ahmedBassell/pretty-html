@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "a package to make html file for angular more cute",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ahmedBassell/pretty-html.git"
+  },
   "scripts": {
     "test": "jest"
   },
