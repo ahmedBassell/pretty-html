@@ -28,7 +28,7 @@ according to front-end guidelines used at @instabug.
 
 ```js
 import linter from 'ibg-html-pretty';
-    
+
     html      = `<div class="parent">
 <div class="color-orange" id="divId" ng-if="vm.variable">
 </div>
@@ -56,13 +56,13 @@ import linter from 'ibg-html-pretty';
 `;
     lintedHtml      = linter.lint(html);
 ```
-### Output 
+### Output
 
 
 ```html
 <div class="parent">
-  <div
-	  id="divId"
+	<div
+		id="divId"
 		class="color-orange"
 		ng-if="vm.variable">
 	</div>
@@ -92,7 +92,6 @@ import linter from 'ibg-html-pretty';
 		</hello-component>
 	</div>
 </div>
-
 ```
 
 ## Options
