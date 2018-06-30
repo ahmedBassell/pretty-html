@@ -17,7 +17,9 @@
   "author": "Ahmed Bassell <ahmedbassell@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^23.0.1",
+    "jest": "^23.0.1"
+  },
+  "dependencies": {
     "parse5": "^5.0.0"
   }
 }
