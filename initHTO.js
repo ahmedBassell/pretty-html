@@ -3,8 +3,8 @@ const parse5 = require('parse5');
 
 let HTO = {};
 
-function readFile(callback) {
-  fs.readFile('./cases/input-1.html', 'utf8', function(err, data) {
+function readFile(filePath, callback) {
+  fs.readFile(filePath, 'utf8', function(err, data) {
     if (err) throw err;
 
     callback(data);

@@ -33,20 +33,16 @@ let ORDERED_ATTRS = [
 ];
 
 function buildHLA(HTO) {
-  // if (HTO.childNodes) {
-    HLA = _traverse(HTO);
-  // }
-
-  console.log(HLA);
+  HLA = [];
+  HLA = _traverse(HTO);
 
   HLA = _removeFragment(HLA);
   HLA = _oneLine(HLA);
   HLA = _separationSpace(HLA);
+  HLA = _breakTexts(HLA);
   HLA = _indent(HLA);
 
-  // console.log(_buildPage(HLA));
-
-  _output(_buildPage(HLA));
+  return _buildPage(HLA);
 }
 
 function _traverse(node) {
@@ -87,7 +83,7 @@ function _handleTagTraverse(node) {
     for (let index = 0; index < node.orderedAttrs.length; index++) {
       let attr = node.orderedAttrs[index];
       htmlLine = {
-        line: `${attr.name}="${attr.value}"`,
+        line: `${attr.prefix ? (attr.prefix + ':') : ''}${attr.name}="${attr.value}"`,
         indentSize: node.indentSize + 1,
         isMultipleAttr: (node.orderedAttrs.length > 1),
         isAttr: true,
@@ -162,9 +158,10 @@ function _handleTextTraverse(node) {
     tagStatus: 'void',
   };
 
-  htmlLine.line = node.value.replace(/\n/g, '');
-  htmlLine.line = htmlLine.line.replace(/ /g, '');
-  if (htmlLine.line) HLA.push(htmlLine);
+  htmlLine.line = node.value.replace(/\n/g, ' ');
+  htmlLine.line = htmlLine.line.trim();
+  htmlLine.line = htmlLine.line.replace(/\t/g, '');
+  if (htmlLine.line !== '') HLA.push(htmlLine);
 }
 
 function _orderAttrs(node) {
@@ -197,6 +194,7 @@ function _oneLine(hla) {
     let currentNode = lineObj.node;
 
     if (lineObj.tagStatus === 'close') continue;
+    if (lineObj.tagStatus === 'void') continue;
 
     let newline = '';
     let ElementsStack = [];
@@ -208,6 +206,7 @@ function _oneLine(hla) {
       if (newline.length > MAX_LINE_LENGTH || clineObj.isMultipleAttr) {
         break;
       }
+
       toBeDeletedIndices.push(cindex);
       if (clineObj.tagStatus === 'close') ElementsStack.pop();
       if (!ElementsStack.length) {
@@ -233,7 +232,6 @@ function _separationSpace(hla) {
     let currentLineObj = hla[index];
     let nextLineObj = hla[index + 1];
 
-    console.log(currentLineObj.node, currentLineObj.tagStatus);
     if ((currentLineObj.tagStatus === 'close' || currentLineObj.tagStatus === 'void') &&
       (nextLineObj.tagStatus === 'open' || nextLineObj.tagStatus === 'void')) {
       currentLineObj.line += '\n';
@@ -246,7 +244,7 @@ function _separationSpace(hla) {
 function _removeFragment(hla) {
   let newHla = [];
   for (let lineObj of hla) {
-    if (lineObj.node === '#document-fragment') {
+    if (['#document-fragment', '#document'].indexOf(lineObj.node) > -1) {
       continue;
     } else {
       newHla.push(lineObj);
@@ -254,6 +252,55 @@ function _removeFragment(hla) {
   }
 
   return newHla;
+}
+
+function _breakTexts(hla) {
+  for (let lineObjIndex = 0; lineObjIndex < hla.length; lineObjIndex ++) {
+    let lineObj = hla[lineObjIndex];
+
+    if (lineObj.tagStatus === 'void') {
+      let newLine = '';
+      let newLines = [];
+      let words = lineObj.line.split(' ');
+      for (let word of words) {
+        if (((newLine + ' ' + word).length + (lineObj.indentSize * 2)) > MAX_LINE_LENGTH) {
+          newLines.push(newLine);
+          newLine = word;
+        } else {
+          if (newLine === '') {
+            newLine += word;
+          } else {
+            newLine += ' ' + word;
+          }
+        }
+      }
+
+      if (newLine != '') newLines.push(newLine);
+
+      if (newLines.length) {
+        lineObj.line = newLines[0];
+        for (let newIndex = 1; newIndex < newLines.length; newIndex ++) {
+          let newLine1 = newLines[newIndex];
+          hla = _insertNewLine(hla, (lineObjIndex + newIndex), newLine1,
+            lineObj.indentSize, lineObj.tagStatus);
+        }
+      }
+    }
+
+
+  }
+
+  return hla;
+}
+
+function _insertNewLine(hla, index,  newLine, indentSize, tagStatus) {
+  hla.splice(index, 0, {
+    line: newLine.trim(),
+    indentSize: indentSize,
+    tagStatus: tagStatus,
+  });
+
+  return hla;
 }
 
 function _indent(hla) {
@@ -274,16 +321,16 @@ function _buildPage(hla) {
   return page;
 }
 
-function _output(page) {
-  var fileName = 'output/file1.html';
-  var stream = fs.createWriteStream(fileName);
-
-  stream.once('open', function(fd) {
-    // var html = html;
-
-    stream.end(page);
-  });
-}
+// function _output(page) {
+//   var fileName = 'output/file1.html';
+//   var stream = fs.createWriteStream(fileName);
+//
+//   stream.once('open', function(fd) {
+//     // var html = html;
+//
+//     stream.end(page);
+//   });
+// }
 
 module.exports = {
   buildHLA: buildHLA,

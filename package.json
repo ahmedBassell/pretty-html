@@ -1,7 +1,7 @@
 {
-  "name": "ibg-ng-html-gorgeous",
+  "name": "ibg-html-pretty",
   "version": "1.0.0",
-  "description": "make html file for angular more cute",
+  "description": "a package to make html file for angular more cute",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -10,9 +10,11 @@
     "pretty",
     "formatter",
     "html",
-    "angular"
+    "angular",
+    "lint",
+    "beautifier"
   ],
-  "author": "ahmedbassell@gmail.com",
+  "author": "Ahmed Bassell <ahmedbassell@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "jest": "^23.0.1",

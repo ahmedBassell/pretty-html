@@ -8,8 +8,7 @@
         xlink:href="#shape-info">
       </use>
       <use
-        ng-if="bannerVm.state === 'warning'"
-        xlink:href="#shape-warning">
+        ng-if="bannerVm.state === 'warning'" xlink:href="#shape-warning">
       </use>
       <use
         ng-if="bannerVm.state === 'success'"
@@ -17,7 +16,8 @@
       </use>
       <use
         ng-if="bannerVm.state === 'error'"
-        xlink:href="#shape-icon-blocked">
+        xlink:href="#shape-icon-blocked"
+        >
       </use>
     </svg>
   </div>
@@ -32,7 +32,6 @@
       <ng-transclude ng-if="!banner.message">
       </ng-transclude>
     </div>
-
     <div
       class="c-alert__action"
       ng-if="bannerVm.hasButton">
