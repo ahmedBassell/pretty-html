@@ -1,6 +1,6 @@
 {
   "name": "ibg-html-pretty",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a package to make html file for angular more cute",
   "main": "index.js",
   "scripts": {
