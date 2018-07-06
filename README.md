@@ -56,38 +56,39 @@ After
 
 ```html
 <div class="parent">
-	<div
-		id="divId"
-		class="color-orange"
-		ng-if="vm.variable">
-	</div>
+  <div
+    id="divId"
+    class="color-orange"
+    ng-if="vm.variable">
+  </div>
 
-	<div
-		class="color-red"
-		ng-if="vm.variable">
-	</div>
+  <div
+    class="color-red"
+    ng-if="vm.variable">
+  </div>
 
-	<div
-		class="color-yellow"
-		ng-if="vm.variable">
-		<span>
-			hello world, hi hello people from long line road in wide scentence streat and much words town
-			hello hello hello hello hello hello hello hello hello hello hello hello world!
-		</span>
+  <div
+    class="color-yellow"
+    ng-if="vm.variable">
+    <span>
+      hello world, hi hello people from long line road in wide scentence streat and much words town
+      hello hello hello hello hello hello hello hello hello hello hello hello world!
+    </span>
 
-		<hello-component
-			class="hello"
-			attr="attr1"
-			attr2="attr2">
-			<img/>
+    <hello-component
+      class="hello"
+      attr="attr1"
+      attr2="attr2">
+      <img/>
 
-			<img
-				alt="some-pic"
-				source="https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/bmw-m2-road-test-0273_0.jpg?itok=rZL6Hh9r"/>
-		</hello-component>
-	</div>
+      <img
+        alt="some-pic"
+        source="https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/bmw-m2-road-test-0273_0.jpg?itok=rZL6Hh9r"/>
+    </hello-component>
+  </div>
 </div>
 ```
+
 ## Options
 
 No options yet
