@@ -47,6 +47,9 @@ function buildHLA(HTO) {
 
 function _traverse(node) {
   switch (node.nodeName) {
+      case '#comment':
+        _handleCommentTraverse(node);
+        break;
       case '#text':
         _handleTextTraverse(node);
         break;
@@ -164,6 +167,35 @@ function _handleTextTraverse(node) {
   if (htmlLine.line !== '') HLA.push(htmlLine);
 }
 
+function _handleCommentTraverse(node) {
+  let comment = node.data;
+  comment = comment.replace(/\n/g, ' ');
+  comment = comment.replace(/\t/g, '');
+  comment = comment.trim();
+
+  htmlLine = {
+    line: ` ${comment} `,
+    indentSize: node.indentSize + 1,
+    tagStatus: 'void',
+  };
+
+  if (comment !== '') {
+    HLA.push({
+      line: '<!--',
+      indentSize: node.indentSize,
+      tagStatus: 'open',
+    });
+    HLA.push(htmlLine);
+    HLA.push({
+      line: '-->',
+      indentSize: node.indentSize,
+      tagStatus: 'close',
+    });
+  }
+
+
+}
+
 function _orderAttrs(node) {
   if (node.attrs && node.attrs.length) {
     node.orderedAttrs = [];
@@ -197,13 +229,15 @@ function _oneLine(hla) {
     if (lineObj.tagStatus === 'void') continue;
 
     let newline = '';
+    let newlineLength = 0;
     let ElementsStack = [];
     let toBeDeletedIndices = [];
     for (let cindex = index; cindex < hla.length; cindex++) {
       let clineObj = hla[cindex];
       newline += ((clineObj.isAttr) ? ` `: ``) + clineObj.line;
+      newlineLength = newline.length + (clineObj.indentSize * 2);
       if (clineObj.tagStatus === 'open') ElementsStack.push(clineObj.node);
-      if (newline.length > MAX_LINE_LENGTH || clineObj.isMultipleAttr) {
+      if (newlineLength > MAX_LINE_LENGTH || clineObj.isMultipleAttr) {
         break;
       }
 
@@ -305,7 +339,7 @@ function _insertNewLine(hla, index,  newLine, indentSize, tagStatus) {
 
 function _indent(hla) {
   for (let lineObj of hla) {
-    lineObj.line = '\t'.repeat(lineObj.indentSize) + lineObj.line;
+    lineObj.line = '  '.repeat(lineObj.indentSize) + lineObj.line;
   }
 
   return hla;

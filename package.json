@@ -1,7 +1,7 @@
 {
   "name": "ibg-html-pretty",
   "version": "1.0.3",
-  "description": "a package to make html file for angular more cute",
+  "description": "An opinionated lightweight package to beautify & lint html partials",
   "main": "index.js",
   "repository": {
     "type": "git",
