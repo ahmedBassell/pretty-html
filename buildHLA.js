@@ -85,8 +85,11 @@ function _handleTagTraverse(node) {
     HLA.push(htmlLine);
     for (let index = 0; index < node.orderedAttrs.length; index++) {
       let attr = node.orderedAttrs[index];
+      let prefix = attr.prefix ? (attr.prefix + ':') : '';
+      let name = attr.name || '';
+      let value = attr.value ? ('="' + attr.value + '"') : '';
       htmlLine = {
-        line: `${attr.prefix ? (attr.prefix + ':') : ''}${attr.name}="${attr.value}"`,
+        line: `${prefix}${name}${value}`,
         indentSize: node.indentSize + 1,
         isMultipleAttr: (node.orderedAttrs.length > 1),
         isAttr: true,
@@ -96,7 +99,12 @@ function _handleTagTraverse(node) {
       HLA.push(htmlLine);
     }
   } else if (node.orderedAttrs && node.orderedAttrs.length === 1) {
-    htmlLine.line += ` ${node.orderedAttrs[0].name}="${node.orderedAttrs[0].value}">`;
+    let attr = node.orderedAttrs[0];
+    let prefix = attr.prefix ? (attr.prefix + ':') : '';
+    let name = attr.name || '';
+    let value = attr.value ? ('="' + attr.value + '"') : '';
+
+    htmlLine.line += ` ${prefix}${name}${value}>`;
     HLA.push(htmlLine);
   } else {
     htmlLine.line += `>`;
@@ -135,8 +143,12 @@ function _handleVoidElementTraverse(node) {
     HLA.push(htmlLine);
     for (let index = 0; index < node.orderedAttrs.length; index++) {
       let attr = node.orderedAttrs[index];
+      let prefix = attr.prefix ? (attr.prefix + ':') : '';
+      let name = attr.name || '';
+      let value = attr.value ? ('="' + attr.value + '"') : '';
+
       htmlLine = {
-        line: `${attr.name}="${attr.value}"`,
+        line: `${prefix}${name}${value}`,
         indentSize: node.indentSize + 1,
         isMultipleAttr: (node.orderedAttrs.length > 1),
         isAttr: true,
@@ -146,7 +158,11 @@ function _handleVoidElementTraverse(node) {
       HLA.push(htmlLine);
     }
   } else if (node.orderedAttrs && node.orderedAttrs.length === 1) {
-    htmlLine.line += ` ${node.orderedAttrs[0].name}="${node.orderedAttrs[0].value}"/>`;
+    let attr = node.orderedAttrs[0];
+    let prefix = attr.prefix ? (attr.prefix + ':') : '';
+    let name = attr.name || '';
+    let value = attr.value ? ('="' + attr.value + '"') : '';
+    htmlLine.line += ` ${prefix}${name}${value}/>`;
     HLA.push(htmlLine);
   } else {
     htmlLine.line += `/>`;
@@ -225,8 +241,7 @@ function _oneLine(hla) {
     let lineObj = hla[index];
     let currentNode = lineObj.node;
 
-    if (lineObj.tagStatus === 'close') continue;
-    if (lineObj.tagStatus === 'void') continue;
+    if (lineObj.tagStatus !== 'open') continue;
 
     let newline = '';
     let newlineLength = 0;
@@ -250,7 +265,6 @@ function _oneLine(hla) {
           tagStatus: 'void',
         });
 
-        // _oneLine(hla);
         break;
       }
     }
