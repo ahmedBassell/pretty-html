@@ -28,36 +28,31 @@ according to front-end guidelines used at @instabug.
 
 ```js
 import linter from 'ibg-html-pretty';
+let lintedHtml  = linter.lint(HTML_STRING);
+```
 
-let html      = `<div class="parent">
+Before
+
+```html
+<div class="parent">
 <div class="color-orange" id="divId" ng-if="vm.variable">
 </div>
-
-<div
-	class="color-red" ng-if="vm.variable">
+<div class="color-red" ng-if="vm.variable">
 </div>
-
-<div
-	class="color-yellow" ng-if="vm.variable">
-	<span>hello world, hi hello people from long line road in wide scentence streat and much words town hello hello hello hello hello hello hello hello hello hello hello hello world!</span>
-
-	<hello-component
-		class="hello"
-		attr="attr1"
-		attr2="attr2">
-		<img/>
-
-		<img
-			alt="some-pic"
-			source="https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/bmw-m2-road-test-0273_0.jpg?itok=rZL6Hh9r"/>
-	</hello-component>
+<div class="color-yellow" ng-if="vm.variable">
+<span>hello world, hi hello people from long line road in wide scentence streat and much words town hello hello hello hello hello hello hello hello hello hello hello hello world!</span>
+<hello-component class="hello"
+attr="attr1"
+attr2="attr2">
+<img source="image.jpg"/><img
+alt="some-pic"
+source="https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/bmw-m2-road-test-0273_0.jpg?itok=rZL6Hh9r"/>
+</hello-component>
 </div>
 </div>
-`;
-let lintedHtml      = linter.lint(html);
 ```
-### Output
 
+After
 
 ```html
 <div class="parent">
@@ -93,7 +88,17 @@ let lintedHtml      = linter.lint(html);
 	</div>
 </div>
 ```
-
 ## Options
 
 No options yet
+
+### Contributing
+
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
+
+### Author
+
+**Ahmed Bassell**
+
+* [github/ahmedBassell](https://github.com/ahmedBassell)
+* [twitter/AhmedBassell](https://twitter.com/AhmedBassell)

@@ -1,11 +1,12 @@
 {
   "name": "ibg-html-pretty",
   "version": "1.0.5",
+  "homepage": "https://github.com/ahmedBassell/pretty-html",
   "description": "An opinionated lightweight package to beautify & lint html partials",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ahmedBassell/pretty-html.git"
+    "url": "https://github.com/ahmedBassell/pretty-html.git"
   },
   "scripts": {
     "test": "jest"
@@ -16,9 +17,15 @@
     "html",
     "angular",
     "lint",
-    "beautifier"
+    "beautifier",
+    "instabug",
+    "guidelines",
+    "ibg-html-pretty",
+    "markup",
+    "indentation",
+    "max-line-length"
   ],
-  "author": "Ahmed Bassell <ahmedbassell@gmail.com>",
+  "author": "Ahmed Bassell (https://github.com/ahmedBassell) <ahmedbassell@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "jest": "^23.0.1"
