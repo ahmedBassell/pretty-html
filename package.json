@@ -1,6 +1,6 @@
 {
   "name": "ibg-html-pretty",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "homepage": "https://github.com/ahmedBassell/pretty-html",
   "description": "An opinionated lightweight package to beautify & lint html partials",
   "main": "index.js",
