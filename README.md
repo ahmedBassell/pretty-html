@@ -1,6 +1,6 @@
 # Pretty Html
 
-[![npm version](https://badge.fury.io/js/pretty-html.svg)](https://badge.fury.io/js/pretty-html)
+[![npm version](https://badge.fury.io/js/ibg-html-pretty.svg)](https://badge.fury.io/js/ibg-html-pretty)
 
 ------
 
